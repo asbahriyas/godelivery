@@ -15,12 +15,13 @@ class EditAccountScreen extends StatefulWidget {
 class _EditAccountScreenState extends State<EditAccountScreen> {
   String initlVal;
   bool isPicture= false;
-  var imageFile;
+  File imageFile;
    openGallery() async{
+     final ImagePicker _picker = ImagePicker();
    // ignore: deprecated_member_use
-   var picture =  ImagePicker.platform.getImage(source: ImageSource.gallery);
+   PickedFile picture =  await _picker.getImage(source: ImageSource.gallery);
    setState(() {
-     imageFile = picture;
+     imageFile = File(picture.path);
      isPicture =true;
    });
   }
