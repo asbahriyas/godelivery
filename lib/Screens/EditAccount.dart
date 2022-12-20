@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_delivery/Screens/MyDrawer.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -17,10 +15,10 @@ class EditAccountScreen extends StatefulWidget {
 class _EditAccountScreenState extends State<EditAccountScreen> {
   String initlVal;
   bool isPicture= false;
-  File imageFile;
+  var imageFile;
    openGallery() async{
    // ignore: deprecated_member_use
-   var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
+   var picture =  ImagePicker.platform.getImage(source: ImageSource.gallery);
    setState(() {
      imageFile = picture;
      isPicture =true;

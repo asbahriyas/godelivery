@@ -35,9 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
   _loginWithFB() async{
     final result = await facebookLogin.logIn(customPermissions: ['email']);
     switch (result.status) {
-      case FacebookLoginStatus.Success:
+      case FacebookLoginStatus.success:
         final token = result.accessToken.token;
-        final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
+        final graphResponse = await http.get(Uri.parse('https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}'));
         final profile = JSON.jsonDecode(graphResponse.body);
         print(profile);
         setState(() {
@@ -45,20 +45,11 @@ class _LoginScreenState extends State<LoginScreen> {
           _isLoggedIn = true;
         });
         break;
-      case FacebookLoginStatus.Cancel:
+      case FacebookLoginStatus.cancel:
         setState(() => _isLoggedIn = false );
         break;
-      case FacebookLoginStatus.Error:
+      case FacebookLoginStatus.error:
         setState(() => _isLoggedIn = false );
-        break;
-      case FacebookLoginStatus.Success:
-      // TODO: Handle this case.
-        break;
-      case FacebookLoginStatus.Cancel:
-      // TODO: Handle this case.
-        break;
-      case FacebookLoginStatus.Error:
-      // TODO: Handle this case.
         break;
     }
   }
